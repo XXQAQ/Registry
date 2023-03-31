@@ -34,9 +34,7 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public class RegistryManager {
-
-    private static final String TAG = "RegistryManager";
+public class Registry {
 
     private static final String NODE_SPLIT = "/";
 
@@ -44,9 +42,9 @@ public class RegistryManager {
     private static final String ARRAY_IDENTIFICATION_END = "]";
     private static final String ARRAY_IDENTIFICATION_MIDDLE = ",";
 
-    private static RegistryManager instance = new RegistryManager();
+    private static Registry instance = new Registry();
 
-    public static RegistryManager getInstance(){
+    public static Registry getInstance(){
         return instance;
     }
 
@@ -80,8 +78,8 @@ public class RegistryManager {
         });
     }
 
-    public void putFile(String path){
-        putJSONObject("",getFileConfigJSONObject(path));
+    public void putByFile(String path){
+        putByJSONObject("",getFileConfigJSONObject(path));
     }
 
     public JSONObject getFileConfigJSONObject(String path){
@@ -115,8 +113,8 @@ public class RegistryManager {
         return null;
     }
 
-    public void putAssetsFile(String path){
-        putJSONObject("",getAssetsFileConfigJSONObject(path));
+    public void putByAssetsFile(String path){
+        putByJSONObject("",getAssetsFileConfigJSONObject(path));
     }
 
     public JSONObject getAssetsFileConfigJSONObject(String path){
@@ -181,21 +179,21 @@ public class RegistryManager {
         }
     }
 
-    public void putJson(String json){
+    public void putByJson(String json){
         try {
             JSONObject jsonObject = new JSONObject(json);
-            putJSONObject("",jsonObject);
+            putByJSONObject("",jsonObject);
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
 
-    private void putJSONObject(String prefix,JSONObject jsonObject){
+    private void putByJSONObject(String prefix,JSONObject jsonObject){
         for (Iterator<String> it = jsonObject.keys(); it.hasNext(); ) {
             String key = it.next();
             Object value = jsonObject.opt(key);
             if (value instanceof JSONObject){
-                putJSONObject(prefix+NODE_SPLIT+key,(JSONObject) value);
+                putByJSONObject(prefix+NODE_SPLIT+key,(JSONObject) value);
             }
             else    if (value instanceof JSONArray){
                 JSONArray jsonArray = (JSONArray) value;
