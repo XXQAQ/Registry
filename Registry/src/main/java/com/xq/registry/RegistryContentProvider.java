@@ -161,7 +161,7 @@ public class RegistryContentProvider extends ContentProvider {
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
             if (newVersion > oldVersion){
-                Log.d("RegistryContentProvider","onUpgrade oldVersion = " + oldVersion + " , newVersion = " + newVersion);
+                Log.e("RegistryContentProvider","onUpgrade oldVersion = " + oldVersion + " , newVersion = " + newVersion);
             }
         }
 

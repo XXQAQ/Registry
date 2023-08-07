@@ -27,11 +27,11 @@ import java.io.InputStream;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class Registry {
@@ -492,7 +492,7 @@ public class Registry {
     private final Map<String, Set<OnValueChangedListener>> onValueChangedListenerMap = new ConcurrentHashMap<>();
     public void registerOnValueChangedListener(String key, OnValueChangedListener listener){
         if (!onValueChangedListenerMap.containsKey(key)){
-            onValueChangedListenerMap.put(key,new LinkedHashSet<OnValueChangedListener>());
+            onValueChangedListenerMap.put(key,new CopyOnWriteArraySet<OnValueChangedListener>());
         }
         onValueChangedListenerMap.get(key).add(listener);
     }
