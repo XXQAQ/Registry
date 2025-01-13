@@ -343,12 +343,11 @@ public class Registry {
     }
 
     public boolean getBoolean(String key,boolean defaultValue){
-        try {
-            return Boolean.parseBoolean(get(key));
-        } catch (Exception e){
-
+        String value = get(key);
+        if (value == null){
+            return defaultValue;
         }
-        return defaultValue;
+        return Boolean.parseBoolean(get(key));
     }
 
     public String get(String key){
